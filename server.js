@@ -55,25 +55,25 @@ app.get('/location.json', function(request, response) {
 	});
 }）；
 
-// app.get('/', function(request, response) {
-// 	response.set('Content-Type', 'text/html');
-// 	var indexPage = '';
-// 	db.collection('locations', function(er, collection) {
-// 		collection.find().toArray(function(err, cursor) {
-// 			if (!err) {
-// 				indexPage += "<!DOCTYPE HTML><html><head><title>Server Log</title></head><body><h1>Who Checked in at Where on When</h1>";
-// 				for (var count = 0; count < cursor.length; count++) {
-// 					indexPage += "<p>" + cursor[count].login + "checked in at " + cursor[count].lat + ", " 
-// 					+ cursor[count].lng + "on " + cursor[count].created_at + "</p>";
-// 				}
-// 				indexPage += "</body></html>"
-// 				response.send(indexPage);
-// 			} else {
-// 				response.send('<!DOCTYPE HTML><html><head><title>Server Log</title></head><body><h1>Ugh, something went terribly wrong!</h1></body></html>');
-// 			}
-// 		});
-// 	});
-// });
+app.get('/', function(request, response) {
+	response.set('Content-Type', 'text/html');
+	var indexPage = '';
+	db.collection('locations', function(er, collection) {
+		collection.find().toArray(function(err, cursor) {
+			if (!err) {
+				indexPage += "<!DOCTYPE HTML><html><head><title>Server Log</title></head><body><h1>Who Checked in at Where on When</h1>";
+				for (var count = 0; count < cursor.length; count++) {
+					indexPage += "<p>" + cursor[count].login + "checked in at " + cursor[count].lat + ", " 
+					+ cursor[count].lng + "on " + cursor[count].created_at + "</p>";
+				}
+				indexPage += "</body></html>"
+				response.send(indexPage);
+			} else {
+				response.send('<!DOCTYPE HTML><html><head><title>Server Log</title></head><body><h1>Ugh, something went terribly wrong!</h1></body></html>');
+			}
+		});
+	});
+});
 
 //bind-to-port-within-60-seconds
 app.listen(process.env.PORT || 3000);
