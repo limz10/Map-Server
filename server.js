@@ -42,11 +42,12 @@ app.post('/sendLocation', function(request, response) {
 });
 
 app.get('/location.json', function(request, response) {
+	response.set('Content-Type', 'application/json');
 	var to_send = {};
 	db.collection('locations', function(er, collection) {
-		collection.find(function(err, cursor) {
+		collection.find().toArray(function(err, cursor) {
 			if (!err) {
-				to_send = cursor;
+				to_send = JSON.stringify(cursor);
 				response.send(to_send);
 			} else {
 				response.send(to_send);
@@ -57,7 +58,7 @@ app.get('/location.json', function(request, response) {
 
 app.get('/', function(request, response) {
 	response.set('Content-Type', 'text/html');
-	var indexPage = '';
+	var indexPage = "";
 	db.collection('locations', function(er, collection) {
 		collection.find().toArray(function(err, cursor) {
 			if (!err) {
