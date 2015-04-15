@@ -37,23 +37,36 @@ app.post('/sendLocation', function(request, response) {
 		};
 		db.collection('locations', function(error1, coll) {
 			var id = coll.insert(toInsert, function(error2, saved) {
-				if (error2) {
-					response.send(500);
+				if (error2) { 
+					response.send(500); 
 				}
 				else {
-					console.log("...");
-					response.send(200);
+					var to_send = '';
+					collection.find().sort({ created_at: -1 });
+					collection.find().toArray(function(error3, cursor) {
+						if (!error3) {
+							to_send += "[";
+							for (var i = cursor.length; i > 0; i--) {
+								to_send += JSON.stringify(cursor[i]);
+								if (i > 0) {
+									to_send += ",";
+								}
+							}
+							to_send += "]";
+							response.send(to_send);
+						}
+					});
 				}
 			});
 		});
-	};
 });
 
 app.get('/location.json', function(request, response) {
 	response.set('Content-Type', 'application/json');
-	var to_send = {};
+	var login = request.query.login;
+	var to_send = "{}";
 	db.collection('locations', function(er, collection) {
-		collection.find().toArray(function(err, cursor) {
+		collection.find({"login" : login}).toArray(function(err, cursor) {
 			if (!err) {
 				to_send = JSON.stringify(cursor);
 				response.send(to_send);
