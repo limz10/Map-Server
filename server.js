@@ -13,7 +13,15 @@ var db = MongoClient.connect(mongoUri, function(error, databaseConnection) {
 	db = databaseConnection;
 });
 
-app.post('/sendLocation', function(request, response) {
+//Enabling CORS
+app.all('/', function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "X-Requested-With");
+	next();
+});
+
+
+app.post('/sendLocation', function(request, response, next) {
 	var login = request.body.login;
 	var lat = request.body.lat;
 	var lng = request.body.lng;
@@ -41,7 +49,7 @@ app.post('/sendLocation', function(request, response) {
 	};
 });
 
-app.get('/location.json', function(request, response) {
+app.get('/location.json', function(request, response, next) {
 	response.set('Content-Type', 'application/json');
 	var to_send = {};
 	db.collection('locations', function(er, collection) {
@@ -56,7 +64,7 @@ app.get('/location.json', function(request, response) {
 	});
 }）；
 
-app.get('/', function(request, response) {
+app.get('/', function(request, response, next) {
 	response.set('Content-Type', 'text/html');
 	var indexPage = "";
 	db.collection('locations', function(er, collection) {
