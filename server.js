@@ -14,14 +14,14 @@ var db = MongoClient.connect(mongoUri, function(error, databaseConnection) {
 });
 
 //Enabling CORS
-app.all('/', function(req, res, next) {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "X-Requested-With");
-	next();
+app.all('/', function(request, response) {
+	response.header("Access-Control-Allow-Origin", "*");
+	response.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+	response.header('Access-Control-Allow-Headers', 'Content-Type');
 });
 
 
-app.post('/sendLocation', function(request, response, next) {
+app.post('/sendLocation', function(request, response) {
 	var login = request.body.login;
 	var lat = request.body.lat;
 	var lng = request.body.lng;
@@ -49,7 +49,7 @@ app.post('/sendLocation', function(request, response, next) {
 	};
 });
 
-app.get('/location.json', function(request, response, next) {
+app.get('/location.json', function(request, response) {
 	response.set('Content-Type', 'application/json');
 	var to_send = {};
 	db.collection('locations', function(er, collection) {
@@ -64,7 +64,7 @@ app.get('/location.json', function(request, response, next) {
 	});
 }）；
 
-app.get('/', function(request, response, next) {
+app.get('/', function(request, response) {
 	response.set('Content-Type', 'text/html');
 	var indexPage = "";
 	db.collection('locations', function(er, collection) {
