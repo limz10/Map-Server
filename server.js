@@ -42,7 +42,6 @@ app.post('/sendLocation', function(request, response) {
 				}
 				else {
 					var to_send = '';
-					collection.find().sort({ created_at: -1 });
 					collection.find().toArray(function(error3, cursor) {
 						if (!error3) {
 							to_send += "[";
