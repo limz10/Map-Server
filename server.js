@@ -85,9 +85,16 @@ app.get('/', function (request, response) {
 	response.header("Access-Control-Allow-Origin", "*");
 	response.header("Access-Control-Allow-Headers", "X-Requested-With");
 	response.set('Content-Type', 'text/html');
+
+	console.log("CORS enabled");
+
 	var indexPage = "";
 	db.collection('locations', function (er, collection) {
+		console.log("db");
+		
 		collection.find().toArray(function (err, cursor) {
+			console.log("find in db");
+
 			if (!err) {
 				indexPage += "<!DOCTYPE HTML><html><head><title>Server Log</title></head><body><h1>Who Checked in at Where on When</h1>";
 				for (var count = 0; count < cursor.length; count++) {
