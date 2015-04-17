@@ -39,7 +39,7 @@ app.post('/sendLocation', function (request, response) {
 	} else {
 		//entry to insert
 		console.log("ready to insert");
-		
+
 		var toInsert = {
 			"login": login,
 			"lat": Number(lat),
@@ -108,7 +108,7 @@ app.get('/', function (request, response) {
 				indexPage += "<!DOCTYPE HTML><html><head><title>Server Log</title></head><body><h1>Who Checked in at Where on When</h1>";
 				for (var count = 0; count < cursor.length; count++) {
 					indexPage += "<p>" + cursor[count].login + "checked in at " + cursor[count].lat + ", " 
-					+ cursor[count].lng + "on " + cursor[count].created_at + "</p>";
+					+ cursor[count].lng + " on " + cursor[count].created_at + "</p>";
 				}
 				indexPage += "</body></html>"
 				response.send(indexPage);
