@@ -64,9 +64,10 @@ app.post('/sendLocation', function (request, response) {
 							response.send(to_send);
 						}
 					});
-				});
+				}
+			});
 		});
-	});
+	}
 });
 
 app.get('/location.json', function (request, response) {
