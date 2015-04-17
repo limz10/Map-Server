@@ -38,6 +38,8 @@ app.post('/sendLocation', function (request, response) {
 		response.send({"error": "Whoops, something is wrong with your data!"});
 	} else {
 		//entry to insert
+		console.log("ready to insert");
+		
 		var toInsert = {
 			"login": login,
 			"lat": Number(lat),
