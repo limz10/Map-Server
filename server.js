@@ -94,7 +94,7 @@ app.get('/location.json', function (request, response) {
 	} else {
 		response.send("{}");
 	}
-}）；
+})；
 
 app.get('/', function (request, response) {
 	//send HTML
