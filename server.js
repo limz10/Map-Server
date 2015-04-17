@@ -66,9 +66,11 @@ app.post('/sendLocation', function (request, response) {
 });
 
 app.get('/location.json', function (request, response) {
-	response.set('Content-Type', 'application/json');
+	response.header("Access-Control-Allow-Origin", "*");
+  	response.header("Access-Control-Allow-Headers", "X-Requested-With");
+	response.setHeader('Content-Type', 'application/json');
 	var login = request.query.login;
-	var to_send = "{}";
+	var to_send = "";
 	db.collection('locations', function (er, collection) {
 		collection.find({"login" : login}).toArray(function (err, cursor) {
 			if (!err) {
@@ -90,9 +92,11 @@ app.get('/', function (request, response) {
 
 	var indexPage = "";
 	db.collection('locations', function (er, collection) {
+
 		console.log("db");
-		
+
 		collection.find().toArray(function (err, cursor) {
+		
 			console.log("find in db");
 
 			if (!err) {
