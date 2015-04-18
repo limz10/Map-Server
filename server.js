@@ -47,7 +47,7 @@ app.post('/sendLocation', function (request, response) {
 			"created_at": created_at,
 		};
 		db.collection('locations', function (error1, collection) {
-			var id = collection.insert(toInsert, function (error2, saved) {
+			var id = collection.update({login : login}, toInsert, {upsert : true}, function (error2, saved) {
 				if (error2) { 
 					response.send(500); 
 				}
@@ -107,7 +107,7 @@ app.get('/', function (request, response) {
 			if (!err) {
 				indexPage += "<!DOCTYPE HTML><html><head><title>Server Log</title></head><body><h1>Who Checked in at Where on When</h1>";
 				for (var count = 0; count < cursor.length; count++) {
-					indexPage += "<p>" + cursor[count].login + "checked in at " + cursor[count].lat + ", " 
+					indexPage += "<p>" + cursor[count].login + " checked in at " + cursor[count].lat + ", " 
 					+ cursor[count].lng + " on " + cursor[count].created_at + "</p>";
 				}
 				indexPage += "</body></html>"
