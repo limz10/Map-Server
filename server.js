@@ -13,13 +13,13 @@ var db = MongoClient.connect(mongoUri, function (error, databaseConnection) {
 	db = databaseConnection;
 });
 
-//Enabling CORS
-app.use(function (request, response, next) {
-	response.header("Access-Control-Allow-Origin", "*");
-	response.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-	response.header('Access-Control-Allow-Headers', 'Content-Type');
-	next();
-});
+// //Enabling CORS
+// app.use(function (request, response, next) {
+// 	response.header("Access-Control-Allow-Origin", "*");
+// 	response.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+// 	response.header('Access-Control-Allow-Headers', 'Content-Type');
+// 	next();
+// });
 
 
 app.post('/sendLocation', function (request, response) {
