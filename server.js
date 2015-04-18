@@ -46,8 +46,8 @@ app.post('/sendLocation', function (request, response) {
 			"lng": Number(lng),
 			"created_at": created_at,
 		};
-		db.collection('locations', function (error1, coll) {
-			var id = coll.insert(toInsert, function (error2, saved) {
+		db.collection('locations', function (error1, collection) {
+			var id = collection.insert(toInsert, function (error2, saved) {
 				if (error2) { 
 					response.send(500); 
 				}
