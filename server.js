@@ -87,7 +87,7 @@ app.get('/location.json', function (request, response) {
 			collection.find().sort({ created_at: -1 });
 			collection.find({"login" : login}).toArray(function (err, cursor) {
 				if (!err) {
-					if (cursor) {
+					if (cursor != []) {
 						to_send = JSON.stringify(cursor);
 						response.send(to_send);
 					} else { //respond empty if not found
@@ -110,7 +110,7 @@ app.get('/', function (request, response) {
 		collection.find().toArray(function (err, cursor) {
 			if (!err) {
 				indexPage += "<!DOCTYPE HTML><html><head><title>Server Log</title></head><body><h1>Who Checked in at Where on When</h1>";
-				for (var count = 0; count < cursor.length; count++) {
+				for (var count = cursor.length - 1; count >= 0; count--) {
 					indexPage += "<p>" + cursor[count].login + " checked in at " + cursor[count].lat + ", " 
 					+ cursor[count].lng + " on " + cursor[count].created_at + "</p>";
 				}
