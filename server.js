@@ -84,12 +84,15 @@ app.get('/location.json', function (request, response) {
 		var to_send = "";
 		db.collection('locations', function (er, collection) {
 			//search for the specific login
+			collection.find().sort({ created_at: -1 });
 			collection.find({"login" : login}).toArray(function (err, cursor) {
 				if (!err) {
-					to_send = JSON.stringify(cursor);
-					response.send(to_send);
-				} else { //respond empty if not found
-					response.send("{}");
+					if (cursor) {
+						to_send = JSON.stringify(cursor);
+						response.send(to_send);
+					} else { //respond empty if not found
+						response.send("{}");
+					}
 				}
 			});
 		});
