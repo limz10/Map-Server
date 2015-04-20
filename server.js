@@ -87,8 +87,8 @@ app.get('/location.json', function (request, response) {
 			collection.find().sort({ created_at: -1 });
 			collection.find({"login" : login}).toArray(function (err, cursor) {
 				if (!err) {
-					if (cursor != []) {
-						to_send = JSON.stringify(cursor);
+					to_send = JSON.stringify(cursor);
+					if (to_send != "[]") {
 						response.send(to_send);
 					} else { //respond empty if not found
 						response.send("{}");
