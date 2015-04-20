@@ -106,6 +106,7 @@ app.get('/', function (request, response) {
 	response.set('Content-Type', 'text/html');
 	var indexPage = "";
 	db.collection('locations', function (er, collection) {
+		collection.find().sort({ created_at: -1 });
 		collection.find().toArray(function (err, cursor) {
 			if (!err) {
 				indexPage += "<!DOCTYPE HTML><html><head><title>Server Log</title></head><body><h1>Who Checked in at Where on When</h1>";
